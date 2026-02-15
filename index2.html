@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Club Savoir Juste | 8lab Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F0F12;
+            --card: rgba(22, 22, 26, 0.7);
+            --primary: #C15045;
+            --primary-hover: #A13A30;
+            --primary-glow: rgba(193, 80, 69, 0.4);
+            --text: #F5F5F5;
+            --muted: #A0A0A5;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; font-size: 16px; }
+
+        /* --- BARRE D'URGENCE --- */
+        .urgent-bar {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo-img { height: 60px; width: auto; filter: drop-shadow(0 0 10px var(--primary-glow)); }
+
+        /* Navigation Desktop */
+        .desktop-nav { display: flex; gap: 30px; }
+        .desktop-nav a { color: var(--text); text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase; opacity: 0.7; transition: 0.3s; }
+        .desktop-nav a:hover { opacity: 1; color: var(--primary); }
+        .desktop-btn { background: var(--primary); padding: 10px 20px; border-radius: 50px; color: white !important; opacity: 1 !important; box-shadow: 0 5px 15px var(--primary-glow); }
+
+        /* Navigation Mobile */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 380px;
+            background: rgba(22, 22, 26, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 12px 25px;
+            justify-content: space-between;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .mobile-nav a { color: var(--text); text-decoration: none; font-size: 10px; font-weight: 700; text-transform: uppercase; opacity: 0.7; display: flex; flex-direction: column; align-items: center; }
+        .mobile-nav a span { margin-top: 2px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+            display: grid;
+            gap: 40px;
+            align-items: center;
+            grid-template-columns: 1fr; 
+            text-align: center;
+        }
+
+        .hero-content h1 { font-size: 36px; line-height: 1.1; font-weight: 800; margin-bottom: 15px; }
+        .hero-content p { color: var(--muted); margin-bottom: 30px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .product-image img { 
+            width: 100%; 
+            max-width: 450px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6); 
+            transition: transform 0.3s;
+        }
+
+        .badge { background: rgba(193, 80, 69, 0.15); color: var(--primary); padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; display: inline-block; border: 1px solid var(--primary-glow); }
+
+        .price-box { margin: 20px 0; }
+        .old-price { text-decoration: line-through; color: var(--muted); font-size: 20px; margin-right: 15px; }
+        .price { font-size: 48px; color: var(--primary); font-weight: 800; }
+
+        .btn { display: inline-block; width: 100%; padding: 20px; font-weight: 800; border: none; border-radius: 16px; font-size: 18px; cursor: pointer; transition: 0.3s; text-transform: uppercase; text-decoration: none; text-align: center; }
+        .primary-btn { background: var(--primary); color: white; box-shadow: 0 10px 30px var(--primary-glow); }
+        .primary-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* --- TRUST BADGES --- */
+        .trust-section { display: flex; justify-content: center; gap: 40px; padding: 40px 20px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 60px 0; background: rgba(255,255,255,0.01); }
+        .trust-item { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .trust-item span { font-size: 20px; }
+
+        /* --- VIDEO GRID --- */
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 80px; padding: 0 24px; }
+        
+        .video-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
+        .video-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-info { padding: 25px; }
+        .video-info h3 { font-size: 18px; color: var(--primary); margin-bottom: 5px; }
+
+        /* --- MARKETING CONTENT --- */
+        .content-container { max-width: 900px; margin: auto; padding: 0 24px; }
+        .feature-box { background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 40px; }
+        
+        .check-list { list-style: none; }
+        .check-list li { margin-bottom: 20px; font-size: 16px; display: flex; align-items: flex-start; }
+        .check-list li::before { content: '✓'; color: var(--primary); margin-right: 15px; font-weight: 900; font-size: 20px; flex-shrink: 0; }
+
+        /* --- STRIPE PAYMENT BAR --- */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            opacity: 0.8;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .pay-icon { height: 24px; width: auto; filter: grayscale(100%) brightness(200%); transition: 0.3s; }
+        .pay-icon:hover { filter: none; }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 24px; text-align: center; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; margin-top: 60px; }
+
+        /* MODE PC */
+        @media (min-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr 1fr;
+                text-align: left;
+                padding: 60px 24px;
+            }
+            .hero-content { padding-right: 40px; }
+            .hero-content p { margin-left: 0; margin-right: 0; }
+            .btn { width: auto; min-width: 300px; }
+            .header-container { justify-content: space-between; }
+        }
+
+        /* MODE MOBILE */
+        @media (max-width: 899px) {
+            .desktop-nav { display: none; }
+            .mobile-nav { display: flex; }
+            .header-container { justify-content: center; padding: 15px; }
+            .trust-section { flex-direction: column; align-items: center; gap: 20px; }
+            h1 { font-size: 30px; }
+            .price { font-size: 42px; }
+            footer { padding-bottom: 120px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="urgent-bar">
+        ⚠️ Offre Limitée : Fermeture des accès imminente
+    </div>
+
+    <header class="header-container">
+        <img src="pics/Untitled design.svg" alt="Logo Club Savoir Juste" class="logo-img">
+        
+        <nav class="desktop-nav">
+            <a href="#programme">Programme</a>
+            <a href="#mission">Mission</a>
+            <a href="#garantie">Garantie</a>
+            <a href="#acheter" class="desktop-btn">Accès Membre</a>
+        </nav>
+    </header>
+
+    <nav class="mobile-nav">
+        <a href="#hero"><span>🏠</span>Accueil</a>
+        <a href="#programme"><span>📺</span>Vidéos</a>
+        <a href="#contenu"><span>📚</span>Cours</a>
+        <a href="#acheter" style="color:var(--primary);"><span>🚀</span>Acheter</a>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="badge">Autorisation Officielle 2026</span>
+            <h1>Formation 8lab Ecosystem <br><span style="color:var(--primary)">Édition Officielle</span></h1>
+            <p>Le savoir au prix juste. Nous avons supprimé les intermédiaires pour rendre cette formation d'élite accessible à tous. Même contenu, nouveau prix.</p>
+            
+            <div class="price-box">
+                <span class="old-price">1900€</span>
+                <span class="price">49€</span>
+            </div>
+
+            <a href="#acheter" class="btn primary-btn">Obtenir mon accès immédiat</a>
+            <p style="font-size: 12px; margin-top: 10px; opacity: 0.6;">Accès envoyé par email instantanément.</p>
+        </div>
+
+        <div class="product-image">
+            <img src="pics/picdacceuil2.svg" alt="Formation 8lab">
+        </div>
+    </section>
+
+    <div class="trust-section">
+        <div class="trust-item"><span>🔒</span> Paiement 100% Sécurisé</div>
+        <div class="trust-item"><span>⚡</span> Accès Immédiat</div>
+        <div class="trust-item"><span>📜</span> Licence Valide</div>
+    </div>
+
+    <h2 id="programme" class="section-title">Le Programme en Vidéo</h2>
+    <div class="video-grid">
+        <div class="video-card">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/axrLq9jJRV4?si=jGOAG2USRuwkYB6T" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h3>01. Video Obligatoire</h3>
+                <p>Comprendre pourquoi cette formation valait 1900€ à l'origine.</p>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/BuUPJjiJ19A?si=WL0c5a3b5KrMmLXr" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h3>02. La Mentalité</h3>
+                <p>Découverte des modules et de la structure étape par étape.</p>
+            </div>
+        </div>
+        <div class="video-card">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/VEM8s14G3nY?si=ZTDjP8osdwrg4-Sh" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h3>03. La stratégie 8lab du pirate</h3>
+                <p>Ce que vous allez être capable de construire avec ce savoir.</p>
+            </div>
+        </div>
+    </div>
+   
+
+    <div class="content-container" id="contenu">
+        <h2 class="section-title">Ce que vous obtenez</h2>
+        <div class="feature-box">
+            <ul class="check-list">
+                <li><strong>Accès Complet :</strong> Tous les modules originaux sans restriction.</li>
+                <li><strong>Méthodologie Structurée :</strong> Un plan d'action clair, pas de théorie inutile.</li>
+                <li><strong>Ressources Incluses :</strong> Supports PDF et outils téléchargeables.</li>
+                <li><strong>Prix Juste :</strong> Pas de frais marketing, vous payez uniquement la valeur.</li>
+            </ul>
+        </div>
+    </div>
+
+    <section id="acheter" style="text-align: center; padding: 60px 24px; max-width: 800px; margin: auto;">
+        <h2 style="font-size: 32px; margin-bottom: 20px;">Rejoignez le Club Savoir Juste</h2>
+        <div class="price" style="margin-bottom: 30px;">49€ <span style="font-size: 20px; color:var(--muted); font-weight: 400;">/ unique</span></div>
+        
+        
+        <script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
+
+<stripe-buy-button
+  buy-button-id="buy_btn_1T17ZjAIFbkw8VjSJtwng3c4"
+  publishable-key="pk_live_51RuJfKAIFbkw8VjSwwgC1MFsJq9fdfyFAHszNJAam7K9kfWc3M6rqXqoEjfz9mAldjJJcLWfD4uOw5qBVPaM4vn30030dmvVt4"
+>
+</stripe-buy-button>
+        
+        <div class="payment-methods">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/200px-MasterCard_Logo.svg.png" class="pay-icon" alt="Mastercard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" class="pay-icon" alt="Visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png" class="pay-icon" alt="Amex">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/200px-Apple_Pay_logo.svg.png" class="pay-icon" alt="Apple Pay" style="height: 20px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Pay_Logo_%282020%29.svg/200px-Google_Pay_Logo_%282020%29.svg.png" class="pay-icon" alt="Google Pay" style="height: 20px;">
+        </div>
+        <p style="font-size: 11px; margin-top: 10px; color: var(--muted);">Transactions sécurisées et cryptées par Stripe.</p>
+    </section>
+
+    <footer>
+        <p>© 2026 CLUB SAVOIR JUSTE<br>Le savoir au prix juste.</p>
+        
+    </footer>
+
+</body>
+</html>
